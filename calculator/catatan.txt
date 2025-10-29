@@ -1,0 +1,5 @@
+*program calculator yag di gunakan sebagai modul belajar*
+program ini mengimplementasikan export function menggunakan module.exports, 
+penerapan parameter function(a,b), 
+dan juga pemahaman penggunaan function scara fungsional
+
