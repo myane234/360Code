@@ -12,4 +12,14 @@ async function readFile(filePath) {
     })
 }
 
-module.exports = { readFile };
+async function write(filepath, isi) {
+    fs.promises.writeFile(filepath, isi , "utf-8")
+    .then(() => {
+        console.log(`data berhasil di tulis:`, isi);
+    })
+    .catch(err => {
+        console.error('gagal menulis file:', err); 
+    })
+}
+
+module.exports = { readFile, write };
