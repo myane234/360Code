@@ -12,8 +12,8 @@ async function readFile(filePath) {
     })
 }
 
-async function write(filepath, isi) {
-    fs.promises.writeFile(filepath, isi , "utf-8")
+async function append(filepath, isi) {
+    fs.promises.appendFile(filepath, isi , "utf-8")
     .then(() => {
         console.log(`data berhasil di tulis:`, isi);
     })
@@ -22,4 +22,4 @@ async function write(filepath, isi) {
     })
 }
 
-module.exports = { readFile, write };
+module.exports = { readFile, append };

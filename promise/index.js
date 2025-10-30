@@ -2,7 +2,7 @@ const fs = require('fs');
 const readline = require('readline');
 const path = require('path');
 const filepath = path.join(__dirname  , 'baca.txt');
-const { readFile, write } = require('./fungsi.js');
+const { readFile, append } = require('./fungsi.js');
 const rl = readline.createInterface({
     input: process.stdin,
     output: process.stdout,
@@ -23,7 +23,7 @@ async function main() {
         readFile(filepath);
     } else if(pilihan === '2') {
         const isi = await ask(`Mau isi teks apa?: `);
-        write(filepath, isi)
+        append(filepath, isi, + '\n');
     }
 }
 main();
