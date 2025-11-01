@@ -1,9 +1,10 @@
 const fs = require("fs");
 const readline = require("readline");
 const path = require("path");
-const { readFile, append, ReadFolder } = require("./fungsi.js");
+const { readFile, append, ReadFolder, selectFile, rename } = require("./fungsi.js");
 // const filepath = path.join(__dirname, "baca.txt");
 const folderpath = path.join(__dirname, "data/");
+
 const rl = readline.createInterface({
   input: process.stdin,
   output: process.stdout,
@@ -47,28 +48,19 @@ async function main() {
         3.Baca Folder : `);
     if (pilihan === "1") {
       //baca file
-      const files = await ReadFolder(folderpath);
-      const tanya = await ask("mau baca file mana?: ");
-      const i = parseInt(tanya) - 1;
-      const hasil = folderpath + files[i];
-      await readFile(folderpath + hasil);
+      const filePath = await selectFile(folderpath, rl);
+      await readFile(filePath);
     } else if (pilihan === "2") {
       //add Teks
-      const files = await ReadFolder(folderpath);
-      const tanya = await ask("mau tulis file mana?: ");
+      const filePath = await selectFile(folderpath, rl);
       const isi = await ask(`Mau isi teks apa?: `);
-      const i = parseInt(tanya) - 1;
-      const hasil = folderpath + files[i];
-      await append(hasil, isi + "\n");
+      await append(filePath, isi + "\n");
     } else if (pilihan === "3") {
       // Read Folder
-      const files = await ReadFolder(folderpath);
       await ReadFolder(folderpath);
-      const tanya = await ask("mau pilih file mana? (masukan nomor) : ");
-      const i = parseInt(tanya) - 1;
-      const hasil = files[i];
-      console.log(`hasil dari pemilihan ${hasil}`);
-    } else if (pilihan === "4") {
+    } else if(pilihan === "4") {
+        await rename(folderpath ,rl)
+    } else if (pilihan === "5") {
       try {
         const tanya = await ask("piramid *: contoh 3 baris: ");
         const hasil = parseInt(tanya);
