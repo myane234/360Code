@@ -30,9 +30,18 @@ async function Login(tanya) {
     try {
     const userName = await tanya('masukkan username: ')
     const Password = await tanya('Masukkan password: ')
+    const Email = await tanya('Masukkan Email')
+
+    let data = {}
+    data[userName] = {
+        password: Password,
+        email: Email
+    }
+
+    // const jsonConvert = JSON.stringify(data, null, 2);
     
-    await fs.promises.writeFile(userPath, JSON.stringify([userName, Password]), null ,2);
-    console.log(`Berhasil mengisi ${userPath} dengan data ${userName} dan ${Password}`);
+    await fs.promises.appendFile(userPath, JSON.stringify(data), null ,2);
+    console.log(`Berhasil mengisi ${userPath} dengan data ${userName} dan ${Password} dan ${Email}`);
     
     
     } catch (err) {
@@ -40,4 +49,15 @@ async function Login(tanya) {
     }
 }
 
-export { RandomNumber, coinFlip, Login };
+async function TebakBuah(tanya) {
+    try{
+        const buah = ['buah', 'apel', 'nanas']
+        buah.forEach((isi, i) => {
+
+        })
+        return buah;
+    } catch(err) {
+        console.error(err)
+    }
+}
+export { RandomNumber, coinFlip, Login, TebakBuah };
