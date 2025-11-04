@@ -1,0 +1,16 @@
+{
+  "name": "360code",
+  "version": "1.0.0",
+  "main": "chrome.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "type": "module",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "puppeteer-core": "^24.27.0"
+  }
+}
