@@ -29,6 +29,7 @@ async function coinFlip(tanya) {
 }
 
 async function Login(tanya) {
+<<<<<<< HEAD
   try {
     const userName = await tanya("masukkan username: ");
     const Password = await tanya("Masukkan password: ");
@@ -54,3 +55,39 @@ async function tebakBuah(tanya) {
 }
 
 export { RandomNumber, coinFlip, Login };
+=======
+    try {
+    const userName = await tanya('masukkan username: ')
+    const Password = await tanya('Masukkan password: ')
+    const Email = await tanya('Masukkan Email')
+
+    let data = {}
+    data[userName] = {
+        password: Password,
+        email: Email
+    }
+
+    // const jsonConvert = JSON.stringify(data, null, 2);
+    
+    await fs.promises.appendFile(userPath, JSON.stringify(data), null ,2);
+    console.log(`Berhasil mengisi ${userPath} dengan data ${userName} dan ${Password} dan ${Email}`);
+    
+    
+    } catch (err) {
+        console.error(err);
+    }
+}
+
+async function TebakBuah(tanya) {
+    try{
+        const buah = ['buah', 'apel', 'nanas']
+        buah.forEach((isi, i) => {
+
+        })
+        return buah;
+    } catch(err) {
+        console.error(err)
+    }
+}
+export { RandomNumber, coinFlip, Login, TebakBuah };
+>>>>>>> 64bee91cb6ee735000a3b38e643b08148eb1a5e2

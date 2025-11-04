@@ -1,5 +1,5 @@
 import readline from 'readline';
-import { RandomNumber, coinFlip, Login } from './tebakAngka.js';
+import { RandomNumber, coinFlip, Login, TebakBuah } from './tebakAngka.js';
 
 const rl = readline.createInterface({
     input: process.stdin,
@@ -34,6 +34,10 @@ async function menu() {
         case '3':
             await Login(tanya);
         break;
+        case '4':
+            const buah = await TebakBuah(tanya);
+            console.log(buah)
+            break;
         default:
         console.log('Pilihan tidak tersedia');
         break;  
