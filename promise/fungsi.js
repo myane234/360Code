@@ -1,6 +1,7 @@
-const path = require("path");
-const fs = require("fs");
-const { promises } = require("dns");
+import fs from "fs";
+import path from "path";
+const { promises } = fs;
+
 
 // use callback asychronus
 // async function readFile(filePath) {
@@ -24,6 +25,8 @@ const { promises } = require("dns");
 // }
 
 //asychronus dengan await not callback
+
+// read a file
 async function readFile(filePath) {
   try {
     const data = await fs.promises.readFile(filePath, "utf-8");
@@ -32,6 +35,8 @@ async function readFile(filePath) {
     console.error("gagal membaca: ", err);
   }
 }
+
+// append a file
 async function append(filePath, isi) {
   try {
    await fs.promises.appendFile(filePath, isi, "utf-8");
@@ -41,6 +46,7 @@ async function append(filePath, isi) {
   }
 }
 
+// read folder
 async function ReadFolder(folderPath) {
   try {
     const files = await fs.promises.readdir(folderPath);
@@ -53,6 +59,7 @@ async function ReadFolder(folderPath) {
   }
 }
 
+// select file this is a global function
 async function selectFile(folderPath, rl) {
     try {
 
@@ -67,7 +74,7 @@ async function selectFile(folderPath, rl) {
             })
         })
 
-        const tanya = await ask('Pilih File')
+        const tanya = await ask('Pilih File:')
         const i = parseInt(tanya) -1;
         const hasil = files[i];
         return path.join(folderPath, hasil);
@@ -76,6 +83,7 @@ async function selectFile(folderPath, rl) {
     }
 }
 
+// rename file
 async function rename(folderPath, rl) {
 
     try{
@@ -90,14 +98,66 @@ async function rename(folderPath, rl) {
           })
         })
       }
-      const filePath = await selectFile(folderPath, rl);
-      const newFilePath = await ask('nama file baru: ');
-     await fs.promises.rename(filePath, folderPath + newFilePath);
+      const filePath = await selectFile(folderPath, rl); //tampilin file sekaligus suru pilih return btw
+      const newFilePath = await ask('nama file baru: '); // input new name file
+     await fs.promises.rename(filePath, folderPath + newFilePath); // rename dengan paramate filepath lama, folderpath + newfilename
+     console.log('berhasil merename file ke: ', newFilePath);
 } catch(err) {
     console.error(err)
 }
 
 }
-module.exports = { readFile, append, ReadFolder, selectFile, rename };
 
+
+// delete file
+async function deletefile(folderPath, rl) {
+  try{
+    const filePath = await selectFile(folderPath, rl);
+    await fs.promises.unlink(filePath);
+    console.log('berhasil menghapus file: ', filePath);
+  } catch (err) {
+    console.error(err);
+  }
+}
+
+// read folder by extension
+async function ReadFolderEXT(folderPath, ask) {
+  try {
+    const files = await fs.promises.readdir(folderPath);
+    const ext = await ask('Masukan ekstensi file untuk di filter (contoh .txt): ');
+
+    for(const file of files) {
+      if(path.extname(file) == ext) {
+        console.log(`file dengan ekstensi ${ext}: `, file);
+      }
+    }
+  } catch(err) {
+    console.error(err);
+  }
+}
+
+
+//create file 
+async function Createfile(ask, folderPath) {
+  try{
+    console.log('Membuat file baru');
+    const filename = await ask('masukkan nama file baru: ');
+    await fs.promises.writeFile(path.join(folderPath, filename), 'utf-8');
+    console.log('berhasil membuat file: ', filename);
+    await ReadFolder(folderPath);
+  } catch(err) {
+    console.error(err);
+  }
+}
+
+async function readBYtext() {
+  try{
+
+  } catch(err) {
+    
+  }
+}
+
+
+export { readFile, append, ReadFolder, selectFile, rename, deletefile, ReadFolderEXT, Createfile };
 //rename, delete, filter extension file

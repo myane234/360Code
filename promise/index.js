@@ -1,8 +1,11 @@
-const fs = require("fs");
-const readline = require("readline");
-const path = require("path");
-const { readFile, append, ReadFolder, selectFile, rename } = require("./fungsi.js");
+import fs from "fs";
+import readline from "readline";
+import path from "path";
+import { fileURLToPath } from "url";
+import { readFile, append, ReadFolder, selectFile, rename, deletefile, ReadFolderEXT, Createfile } from "./fungsi.js";
 // const filepath = path.join(__dirname, "baca.txt");
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 const folderpath = path.join(__dirname, "data/");
 
 const rl = readline.createInterface({
@@ -45,7 +48,11 @@ async function main() {
     const pilihan = await ask(`
         1.Baca File\n
         2.tulis File\n
-        3.Baca Folder : `);
+        3.Baca Folder\n
+        4.Rename File \n
+        5.Piramid\n
+        6.Delete file\n 
+        7.Read by ext: `);
     if (pilihan === "1") {
       //baca file
       const filePath = await selectFile(folderpath, rl);
@@ -76,6 +83,12 @@ async function main() {
       } catch (err) {
         console.error("masalah di: ", err);
       }
+    } else if (pilihan === "6") {
+      await deletefile(folderpath, rl);
+    } else if(pilihan === "7"){
+      await ReadFolderEXT(folderpath, ask);
+    } else if(pilihan === '8') {
+      await Createfile(ask, folderpath);
     }
     // if berhasil buka loop untuk pertanyaan lanjur or out
     await loop();
@@ -85,3 +98,5 @@ async function main() {
   }
 }
 main();
+
+//node js
