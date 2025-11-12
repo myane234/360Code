@@ -29,33 +29,6 @@ async function coinFlip(tanya) {
 }
 
 async function Login(tanya) {
-<<<<<<< HEAD
-  try {
-    const userName = await tanya("masukkan username: ");
-    const Password = await tanya("Masukkan password: ");
-
-    await fs.promises.writeFile(  
-      userPath,
-      JSON.stringify([userName, Password]),
-      null,
-      2
-    );
-    console.log(
-      `Berhasil mengisi ${userPath} dengan data ${userName} dan ${Password}`
-    );
-  } catch (err) {
-    console.error(err);
-  }
-}
-
-async function tebakBuah(tanya) {
-  try {
-    const buah = ["semangka", "apel", "nanas"];
-  } catch (err) {}
-}
-
-export { RandomNumber, coinFlip, Login };
-=======
     try {
     const userName = await tanya('masukkan username: ')
     const Password = await tanya('Masukkan password: ')
@@ -90,4 +63,3 @@ async function TebakBuah(tanya) {
     }
 }
 export { RandomNumber, coinFlip, Login, TebakBuah };
->>>>>>> 64bee91cb6ee735000a3b38e643b08148eb1a5e2
