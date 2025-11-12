@@ -34,7 +34,7 @@ async function Login(tanya) {
     const userName = await tanya("masukkan username: ");
     const Password = await tanya("Masukkan password: ");
 
-    await fs.promises.writeFile(
+    await fs.promises.writeFile(  
       userPath,
       JSON.stringify([userName, Password]),
       null,

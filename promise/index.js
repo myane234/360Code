@@ -2,7 +2,8 @@ import fs from "fs";
 import readline from "readline";
 import path from "path";
 import { fileURLToPath } from "url";
-import { readFile, append, ReadFolder, selectFile, rename, deletefile, ReadFolderEXT, Createfile } from "./fungsi.js";
+import { readFile, append, ReadFolder, selectFile, rename,
+   deletefile, ReadFolderEXT, Createfile, Movefile, ReadFolderCustom } from "./fungsi.js";
 // const filepath = path.join(__dirname, "baca.txt");
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -52,7 +53,11 @@ async function main() {
         4.Rename File \n
         5.Piramid\n
         6.Delete file\n 
-        7.Read by ext: `);
+        7.Read by ext\n
+        8.Create File\n
+        9.Move File\n
+        10. Read Folder Custom\n
+        Masukkan pilihanmu: `);
     if (pilihan === "1") {
       //baca file
       const filePath = await selectFile(folderpath, rl);
@@ -89,6 +94,10 @@ async function main() {
       await ReadFolderEXT(folderpath, ask);
     } else if(pilihan === '8') {
       await Createfile(ask, folderpath);
+    } else if(pilihan === '9') {
+      await Movefile(folderpath, rl);
+    } else if(pilihan === '10') {
+      await ReadFolderCustom(ask);
     }
     // if berhasil buka loop untuk pertanyaan lanjur or out
     await loop();

@@ -2,7 +2,6 @@ import fs from "fs";
 import path from "path";
 const { promises } = fs;
 
-
 // use callback asychronus
 // async function readFile(filePath) {
 //     fs.promises.readFile(filePath, 'utf-8')
@@ -131,6 +130,8 @@ async function ReadFolderEXT(folderPath, ask) {
         console.log(`file dengan ekstensi ${ext}: `, file);
       }
     }
+
+    console.log('Total file dengan ekstensi ', ext, ': ', files.filter(file => path.extname(file) == ext).length);
   } catch(err) {
     console.error(err);
   }
@@ -150,14 +151,52 @@ async function Createfile(ask, folderPath) {
   }
 }
 
-async function readBYtext() {
-  try{
+async function Movefile(folderPath, rl) {
+  try {
+    const ask = (prompt) => {
+      return new Promise((resolve, rejects) => {
+        rl.question(prompt, (jawaban) => {
+          if(!jawaban) {
+            rejects('jawaban kosong');
+          } else {
+            resolve(jawaban);
+          }
+        })
+      })
+    }
+    const filePath = await selectFile(folderPath, rl);
+    const tujuanPath = await ask('Masukkan tujuan Path: ');
 
-  } catch(err) {
-    
+    const namaFile = path.basename(filePath);
+    const tujuanFullPath = path.join(tujuanPath, namaFile);
+    await fs.promises.rename(filePath, tujuanFullPath);
+    console.log('berhasil memindahkan file ke: ', tujuanFullPath);
+  } catch (err) {
+    console.error(err);
   }
 }
 
+async function ReadFolderCustom(ask) {
 
-export { readFile, append, ReadFolder, selectFile, rename, deletefile, ReadFolderEXT, Createfile };
+
+  try{
+ 
+    const FolderInput = await ask('Masukkan path folder yang ingin dibaca: ');
+    const bacaFolderPath = path.resolve(FolderInput);
+    if(!FolderInput) {
+      throw new Error('Path folder kosong');
+    } else {
+    const files = await fs.promises.readdir(bacaFolderPath);
+    files.forEach((files, i) => {
+      console.log(i + 1, files);
+    })
+    }
+  
+  } catch (err) {
+    console.error(err);
+  }
+}
+
+export { readFile, append, ReadFolder, selectFile, rename,
+   deletefile, ReadFolderEXT, Createfile, Movefile, ReadFolderCustom };
 //rename, delete, filter extension file
