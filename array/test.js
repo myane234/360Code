@@ -2,7 +2,7 @@ const fs = require('fs');
 const path = require('path');
 const readline = require('readline');
 const FolderPath = path.join(__dirname,'../promise/data');
-let filepath ; // variable koosng untuk menyimpan path file
+let filepath ;
 
 const rl = readline.createInterface({
     input: process.stdin,
