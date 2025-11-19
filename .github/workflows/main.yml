@@ -1,0 +1,29 @@
+name: Auto Commit(streak Save)
+
+on:
+  schedule:
+    - cron: "0 7 * * *"   # jalan tiap hari jam 07:00
+  workflow_dispatch:      # bisa run manual juga
+
+jobs:
+  auto-commit:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Update file
+        run: |
+          echo "Last update: $(date)" > update.log
+
+      - name: Commit changes
+        run: |
+          git config --local user.email "actions@github.com"
+          git config --local user.name "GitHub Actions Bot"
+          git add update.log
+          git commit -m "auto update" || echo "No changes"
+
+      - name: Push changes
+        run: |
+          git push
